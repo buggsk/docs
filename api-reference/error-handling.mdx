@@ -1,0 +1,66 @@
+---
+title: 'Error Handling'
+description: ''
+---
+
+If an error is encountered, the return value will be one of 200, 400, 401 or 500.  The object returned will be a JSON object with a list of errors encountered.  Contact carrier.integration@orchestro.ai with information about the problem if error 500 is encountered. 
+
+## Error Object 
+
+
+<ParamField body="Code" type="string">
+Error Code
+</ParamField>
+
+
+<ParamField body="Code" type="string">
+Error Description
+</ParamField>
+
+
+### 401 Unauthorized
+```json Response
+{ 
+"errors": [ 
+  { 
+	“code”: “ERR-1000”, 
+	“message”: “Invalid Token.” 
+  } 
+] 
+}
+```
+
+### 400 Bad Request
+```json Response
+{ 
+  "errors": [ 
+	{ 
+  	"code": "ERR-3001", 
+  	"message": "Shipment Date is required." 
+	}, 
+	{ 
+ 	"code": "ERR-3003", 
+ 	"message": "Total number of parcels should be greater than 0." 
+	} 
+  ] 
+} 
+
+```
+
+### 500 Internal Server Error
+```json Response
+{ 
+  "errors": [ 
+	{ 
+  	"code": "ERR-2025", 
+  	"message": "We are having some issue, please resubmit the request." 
+	}, 
+  ] 
+} 
+ 
+
+```
+
+
+
+

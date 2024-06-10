@@ -1,0 +1,159 @@
+---
+title: 'Label API-Order Shipment'
+api: 'Post  https://api.orchestro.ai/api/v1/core/labels'
+description: 'This endpoint returns a printable label in ZPL, PDF or PNG format. It Generates a label manifests data automatically for shipment '
+---
+
+## Request Parameters
+
+<ParamField body="callerType" type="string" required>
+Caller type. ex: Carrier / Shipper 
+</ParamField>
+
+
+<ParamField body="accounts" type="array of objects" required>
+Account Object (minimum Shipper or Carrier info is mandatory)
+</ParamField>
+
+
+
+<RequestExample>
+```json 
+ 
+{ 
+	"callerType": "CARRIER", 
+	"accounts": [ 
+    	{ 
+        	"accountNumber": "TEST_ACCOUNT_1", 
+        	"accountType": "CARRIER" 
+    	} 
+	], 
+	"shipmentDate": "2023-12-22T06:34:00", 
+	"transitTime": "2023-12-22T06:34:00", 
+	"sortOrder": "rate", 
+	"currency": "USD", 
+	"labelFormat": "ZPL", 
+	"labelLayout": "", 
+	"zplEncoded": false, 
+	"parcels": [ 
+    	{ 
+        	"referenceId":"cf6fea899f1848b494d9568e8266e076", 
+        	"shipDate": "2023-12-22T06:34:00", 
+        	"serviceType": "DGRD", 
+        	"pickupType": "Pickup", 
+        	"parcelType": "P", 
+        	"shipFrom": { 
+            	"company": "Dallas City Hall", 
+            	"name": "The City Secretary's Office", 
+            	"address1": "1500 Marilla Street", 
+            	"address2": "", 
+            	"city": "Dallas", 
+            	"state": "TX", 
+            	"zip": "75201", 
+            	"country": "US", 
+            	"phone": "", 
+            	"email": "", 
+            	"addressType": "B" 
+        	}, 
+        	"shipTo": { 
+            	"company": "Dallas City Hall", 
+            	"name": "The City Secretary's Office", 
+            	"address1": "1500 Marilla Street", 
+            	"address2": "", 
+            	"city": "Dallas", 
+            	"state": "TX", 
+            	"zip": "75201", 
+            	"country": "US", 
+            	"phone": "", 
+            	"email": "", 
+            	"addressType": "B" 
+        	}, 
+        	"serviceAttributes": [ 
+            	"AD_SIGN" 
+        	], 
+        	"weight": { 
+            	"value": 6, 
+            	"unit": "lb" 
+        	}, 
+        	"dimensions": { 
+            	"unit": "inch", 
+            	"length": 12, 
+            	"width": 12, 
+            	"height": 4 
+        	}, 
+            “reference1”: “P67AB34”, 
+           “reference2”: “T56ZPWA” 
+    	} 
+	] 
+} 
+```
+
+</RequestExample>
+
+
+<ResponseExample>
+```json Response
+{
+  "currency": "USD",
+  "zplEncoded": false,
+  "parcels": [
+    {
+      "referenceId": "cf6fea899f1848b494d9568e8266e076",
+      "quoteId": "d3afa977-277c-4516-b235-61ccf3f09e27",
+      "shipDate": "2024-04-01T11:07:52",
+      "serviceType": "DGRD",
+      "pickupType": "Pickup",
+      "parcelType": "P",
+      "shipFrom": {
+        "company": "Company C",
+        "name": "",
+        "address1": "13858 Rt 31 W",
+        "address2": "",
+        "city": "Albion",
+        "state": "NY",
+        "zip": "14411",
+        "country": "US",
+        "phone": "",
+        "email": "",
+        "addressType": "R"
+      },
+      "shipTo": {
+        "company": "",
+        "name": "Test Name",
+        "address1": "145 Monroe Creek Blvd",
+        "address2": "",
+        "city": "Asheville",
+        "state": "NC",
+        "zip": "28806",
+        "country": "US",
+        "phone": "",
+        "email": "",
+        "addressType": "B"
+      },
+      "weight": {
+        "unit": "lb",
+        "value": 6.0
+      },
+      "dimensions": {
+        "unit": "inch",
+        "length": 12.0,
+        "width": 12.0,
+        "height": 4.0
+      },
+      "reference1": "P67AB34",
+      "reference2": "T56ZPWA",
+      "labels": {
+        "id": "PF3QJNBW",
+        "createdDate": "2024/04/04 20:59:09",
+        "labelUrl": "https://ocn-stage-files.s3.amazonaws.com/PF3QJNBW?X ",
+        "labelDate": "2024/04/04 20:59:09",
+        "sortCode": "UPSRPF23"
+      }
+    }
+  ]
+}
+
+
+```
+
+</ResponseExample>

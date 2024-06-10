@@ -1,0 +1,42 @@
+---
+title: 'Orchestro Network Standards'
+description: ''
+---
+Standardization of the data exchange format is an essential component for interoperability. The Orchestro network has defined a protocol in several areas to support plug and play by participants. This section describes the current supported actions. The technical description and functionality are provided later in this document. 
+
+<Note>
+
+Network carrier participants are encouraged to migrate to the Orchestro standards for data exchange.
+We do currently provide internal mapping for service types and tracking status codes only. 
+Carrier codes shared at the time of onboarding will be mapped to the corresponding Orchestro code for compatibility with the OCN. There is no end date specified when this feature will cease to be supported. Additionally, all participants can view and modify their configuration using the Orchestro provided self-serve portal.
+
+</Note>
+
+## Label
+
+The Orchestro Network uses a standard label format.
+All participants are required to certify and fully support this label. Configurable fields are available for use as embedded data or human readable printed characters. Multiple image formats are supported including ZPL.  
+ 
+## Orders and Manifests
+
+Parcels are manifested in the Orchestro network on the occurrence of the first event and not during label creation. 
+The manifest is sent to the relevant participants who will be part of the shipment journey in a standard format.   
+ 
+## Tracking
+All tracking status events are stored in the Orchestro database using a network standard code structure. Carrier Participants are encouraged to adopt these codes as described in an Appendix to this document.  
+ 
+Orchestro can receive status codes in the Carrier native code structure. During onboarding, the integration team will request the Carrier native tracking codes and create the internal mapping to Orchestro partnering closely with the participant.  
+
+The configurations can be viewed on the portal, which will be provisioned for the network participants.  
+ 
+Tracking status events are distributed to network members for consumption using the Orchestro standard codes. They are provided in an Appendix to this document. The Orchestro integration team will assist as needed with this process. 
+ 
+A Carrier Participant in the role of shipper can send and receive track events through the network. The middle mile and destination carrier roles can only post events to the network.  
+ 
+## Supported Service Levels
+The Orchestro network currently supports two types of service types.  
+- GRD: Ground 
+- DGRD: Deferred Ground  
+ 
+
+

@@ -1,91 +1,149 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Orchestro",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#C08716",
+    "light": "#C08716",
+    "dark": "#C08716",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#C08716",
+      "to": "#C08716"
     }
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
-  ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
-  },
+    "api": {
+      "baseUrl": "https://api.orchestro.ai/api/v1", 
+      "auth": {
+        "method": "bearer"
+      }
+    },
+  
+
+
   "tabs": [
     {
       "name": "API Reference",
       "url": "api-reference"
     }
   ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    }
-  ],
+ 
   "navigation": [
+   
     {
-      "group": "Get Started",
+      "group": "Getting Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+         "introduction",
+        "dev/getting-started/set-up-orchestro-account",
+        "dev/getting-started/glossary"
+        
+      ]
+    },
+
+    {
+      "group": "Network Standards",
+      "pages": [
+        "dev/network-standards/orchestro-network-standards"  
+      ]
+    },
+
+    {
+      "group": "Participants",
+      "pages": [
+        "dev/participants/participant-enrollment",
+        "dev/participants/participant-roles"
+        
+      ]
+    },
+
+    
+    {
+      "group": "Network",
+      "pages": [
+        "dev/network/network-environment",
+        "dev/network/integration-protocol",
+        "dev/network/dataflow"
+        
+      ]
+    },
+
+    
+    {
+      "group": "Connection",
+      "pages": [
+        "dev/connection/connection-details"
+        
+        
+      ]
+    },
+
+    
+    {
+      "group": "Label",
+      "pages": [
+       "dev/label/label-specification"
+        
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Carrier Management",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+       "dev/invoice",
+        "dev/portal",
+        "dev/data-analytics"
+        
       ]
     },
+
+    
+    {
+      "group": "Changelog",
+      "pages": [
+        "dev/changelog/version2.0",
+        "dev/changelog/version2.1"
+        
+      ]
+    },
+
+    {
+      "group": "Appendices",
+      "pages": [
+        "dev/appendix/appendix-a",
+        "dev/appendix/appendix-b",
+        "dev/appendix/appendix-c",
+        "dev/appendix/appendix-d"
+        
+      ]
+    },
+
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/introduction",
+        "api-reference/quick-start",
+        "api-reference/api-features",
+        "api-reference/usecase",
+        "api-reference/authorization",
+        "api-reference/error-handling"
+
+      
+    
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Endpoints",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/coverage",
+        "api-reference/endpoint/rate",
+        "api-reference/endpoint/label"
+      
+        
       ]
     }
-  ],
-  "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
-  }
+
+   
+  ]
 }

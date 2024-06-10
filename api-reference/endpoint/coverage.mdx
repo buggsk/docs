@@ -1,0 +1,52 @@
+---
+title: 'Get Pre-Shipment'
+api: 'Get  https://api.orchestro.ai/api/v1/core/coverage'
+description: 'This endpoint retrieves the list of covered zip and the service type. The input `serviceType` is optional. '
+---
+
+## Response Parameters
+
+<ParamField body="coverage" type="array of object">
+Coverage Object
+</ParamField>
+
+
+<ParamField body="errors" type="array of object">
+Error Object
+</ParamField>
+
+### Coverage Object
+
+
+<ParamField body="serviceType" type="string" required>
+Service Type
+</ParamField>
+
+
+<ParamField body="zip" type="array of string" required>
+Covered Zip
+</ParamField>
+
+
+<ResponseExample>
+```json Response
+{ 
+	"coverage": [ 
+    	{ 
+        	"serviceType": "GRD", 
+        	"zip": [ 
+            	"78641", 
+            	"78642" 
+        	] 
+    	}, 
+    	{ 
+        	"serviceType": "DGRD", 
+        	"zip": [ 
+            	"78641" 
+        	] 
+    	} 
+	] 
+} 
+```
+
+</ResponseExample>
