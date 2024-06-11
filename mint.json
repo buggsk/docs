@@ -74,7 +74,9 @@
     {
       "group": "Connection",
       "pages": [
-        "dev/connection/connection-details"
+        "dev/connection/sftp",
+        "dev/connection/webhooks",
+        "dev/connection/api"
         
         
       ]
@@ -82,18 +84,18 @@
 
     
     {
-      "group": "Label",
+      "group": "Specification",
       "pages": [
-       "dev/label/label-specification"
+       "dev/specification/label-specification"
         
       ]
     },
     {
       "group": "Carrier Management",
       "pages": [
-       "dev/invoice",
-        "dev/portal",
-        "dev/data-analytics"
+       "dev/carrier-management/invoice",
+        "dev/carrier-management/portal",
+        "dev/carrier-management/data-analytics"
         
       ]
     },

@@ -1,0 +1,156 @@
+---
+title: 'Label Specification'
+description: 'This section details the Orchestro standard label design format and specifications for its use.'
+---
+
+
+## Standard Label Use 
+
+All parcels sent to the Orchestro platform must use this standard label for proper routing and rating. Labels are available through the Orchestro platform. 
+
+
+## Standard Label Certification 
+Carrier Partners, calling the API and generating labels must submit test samples to the Orchestro label team for certification prior to physical parcel shipping. This is to ensure proper implementation of the standard label format.  
+ 
+Please submit samples to carrier.integration@orchestro.ai with Label Certification in the subject line. Carrier’s integration team can also assist in the certification process.  
+
+
+##  Standard Label Design
+
+The Orchestro standard label is designed to ensure interoperability across the network. Barcodes and tracking IDs are required to be recognized and understood by all participating carriers. 
+ 
+This label features a GS1-128 1D barcode for the Orchestro universal tracking ID, along with a 2D data matrix barcode that encodes specific details about the parcel. The label is designed to accommodate a default routing as well as a dynamic routing using an embedded URL to optimize parcel movement even after label is printed and parcel is in transit. 
+
+
+###  Design example
+
+[image]
+
+## Details of Label Contents
+The following table details out the parts of the label as indicated in figure 2. 
+
+| Ref | Name | Required | Sample Value | Description |
+|---|---|---|---|---|
+| 1 | Ship From | Yes | John Doe 100 Main Street Springfield, TN 39021 | Origin address of the parcel |
+| 2 | Ship To | Yes | Jane Doe 301 Elm Street San Francisco, CA 94016 | Destination address of the parcel |
+| 3 | Service Type | Yes | GRD | Type of service booked by customer |
+| 4 | Destination Sort Hub Code | No | DAL | Hub nearest to the destination ZIP |
+| 5 | ID barcode | Yes |  | GS1 128 barcode storing Orchestro tracking ID and connector code |
+| 6 | Tarcking ID | Yes | P96745TL | S1 128 barcode storing Orchestro tracking ID and connector code |
+| 7 | Reference Fields | No | Fragile | Space for additional info carrier might want to add |
+
+
+## Details of Data Matrix Barcode
+
+This barcode is pipe delimited, UPS and USPS compliant so enables all carriers to seamlessly work with two of the largest parcel carriers in the country.<br></br>
+
+Key: *A=Alphanumeric*, *N=Numeric*, *F=Fixed Size*, *V=Variable Size*
+| Field Name | A/N | F/V | Size | Sample Value | Required | Comments |
+|---|---|---|---|---|---|---|
+| Message Version Number | N | V | 02 | 03 | Yes | Indicates data table layout version (use “03” for this version) |
+| Mail Manifest ID | N | F | 18 | 812345607150000001 | Yes | The ID used in the manifest file |
+| Customer ID | A | F | 6 | 123456 | No | UPS Mail Innovation Account Number / Orchestro Number |
+| Customer Cost Center | A | V | 30 | 854NB09NHYF | No | Optional customer related data |
+| Destination Address Line 1 | A | V | 35 | 123 MAIN STREET | Yes | Street Address Line (not intended for contact name or company name) |
+| Destination Address Line 2 | A | F | 2 | SUITE 310 | Conditional | Field is populated when address includes an extended address line (such as a suite) |
+| Destination City | A | V | 9 | ALPHARETTA | Yes | City Name |
+| Destination State / Province | A | F | 2 | GA | Conditional | Field is populated for US and Canada destinations only |
+| Destination Postal Code | A | V | 30343, AV96M1 | Yes | No space for or dashes are allowed |
+| Destination Country Code | N | F | 3 | 840 | Yes | Use the ISO country code |
+| Package ID | A | V | 30 | 000123ABC | Yes | Minimum of one character |
+| USPS Weight | N | V | 2,4 | 5.5000, 65.0125 | Yes | Weight in pounds (four decimals are required) |
+| Processing category code | N | V | 2,2| 7,13 | class |See “processing category table”. Field is blank if mail as an international destination or is categorized as a flat |
+| USPS Tracking Number | N | F | 34 | 42030005926121234 56789123456789019 | Yes | Tracking code for USPS network as a subnetwork carrier |
+| Sort Code | A | F | 10 | DAL | Yes | Defines the region code which is a function of Airport code |
+| Connector Code | A | V | 24 | orchestro.ai /P96745TL | Yes | Embedded dynamic routing & last mile carrier code: 0X which is default sort location and A03 is micro route / sort code / settlement code. Followed by a digit - indicates Carrier class (National, Regional, Postal Integrator, metro, courier), AXX – indicates carrier number, A9 – Service code and A10 – Value added services expected |
+| Orchestro Tracking Code | A | F | 8 | P96745TL | Yes | An eight-character alpha-numeric code starting with ‘P' for parcel and ‘C’ for container, followed by 7 alphanumeric characters excluding ‘O’ and 'I’. |
+
+
+## ZPL Format
+```
+^XA  
+^CF0,20  
+^FO640,30^FDOrchestro^FS  
+^CFA,20  
+^FO50,50^FDJohn Doe^FS  
+^FO50, 75^FD100 Main Street^FS  
+^FO50,100^FDSpringfield TN 39021^FS  
+^FO50,125^FDUnited States (USA)^FS  
+^CF0,35  
+^FO45,215^FDSHIP TO:^FS  
+^FO180,215^FDJane Doe^FS  
+^FO180,260^FD301 Elm Street^FS  
+^FO180,305^FDSan Francisco CA 94016^FS  
+^FO180,350^FDUnited States (USA)^FS  
+^FO50,410^GB700,5,5^FS   
+^FO60,430^FDGRD^FS^CFA,20 ^FO50,50  
+^CF0,40 ^FO460,423^GB80,45,35^FS  
+^FO463,430^FR^FDDAL^FS  
+^BY4,3,180  
+^FO160,500^BC^FDP96745TL^FS  
+^CFA, 25  
+^FO75,750^FR^FDRef1:Fragile^FS ^FO75,790^FR^FDRef2:^FS ^FO75,830^FR^FS  
+^BY3,3  
+^FO250,880^BX,4,200  
+^FDVersion:03|ManifestID:812345607150000001|CustomerID:123456|CustomerCostCenter:134|ToAdd1:301 Elm Street|ToAdd2:|ToCity:San Francisco|ToState:CA|ToZip:94016|ToCountry:US|PackageID:12345|Wt:4.2|USPSTrackingNumber:4203000592612123456789123456789019|SortCode:DAL|ConnectorCode:01-A03-1-A22-A9-A10|OCNID:P96745TL^FS  
+^XZ 
+```
+## Unified Label Use
+This is an integrated label that adds an Orchestro tracking ID and barcode to the existing carrier label specifications, positioning it as an addendum at the bottom. This approach ensures minimal disruption to the carriers' current label formats. 
+
+## Unified Label Design 
+
+The proposed unified label will comprise three sections: 
+ 
+- **Section 1 - Human readable:**  This section will contain the **FROM** and **TO** addresses in plain English along with any additional details in accordance with the current carrier label specifications. 
+ 
+- **Section 2 – Carrier IDs:** This section will contain tracking information (including IDs and barcodes of the carrier) in accordance with the current carrier label specifications.  
+ 
+- **Section 3 – Orchestro:** This section contains Orchestro generated tracking IDs and barcodes. 
+
+<Note> Orchestro will call carrier’s ‘Create Shipment’ API to get Sections 1 and 2. </Note> 
+ 
+The design of the label is as below:
+
+[image]
+
+### Details of Label Contents
+
+| Ref | Name | Required | Sample Value | Description |
+|---|---|---|---|---|
+| 1 | Destination sort hub code | Yes | VIS1 | Sort center from where package goes out for final delivery |
+| 2 | ID barcode | Yes |  | GS1 128 barcode storing Orchestro tracking ID |
+| 3 | Tracking ID | Yes | P96745TL | Eight-character, base 34 alphanumeric starting with ‘P’ for parcel  |
+| 4 | Service Type | Yes | DGRD | Type of service booked by customer – Network service type |
+| 5 | Refrence Fields 1 and 2 | No | Fragile | Space for additional info carrier might want to add |
+
+
+## UPS Sure Post Label 
+When using the Surepost service, the label below will be fetched from UPS and sent as is to the shipper. The Orchestro ID is proposed to be used as the ‘Package ID #’ in the UPS section. 
+ 
+## UPS Mail Innovations Label 
+
+Below is the proposed label for Mail Innovations. When using this service, the label will be fetched from UPS and used as is. The Orchestro ID will be used as the ‘Package ID #’ in the UPS section.
+ 
+
+
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
