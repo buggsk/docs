@@ -16,6 +16,293 @@ Account Object (minimum Shipper or Carrier info is mandatory)
 </ParamField>
 
 
+<ParamField body="shipmentDate" type="date">
+Shipment Date of a package 
+</ParamField>
+
+
+<ParamField body="transitTime" type="string">
+Transit Time 
+</ParamField>
+
+<ParamField body="sortOrder" type="string">
+Sort Order
+</ParamField>
+
+<ParamField body="currency" type="string">
+Currency
+</ParamField>
+
+<ParamField body="labelFormat" type="string">
+Label format (ex: zpl | pdf | png) 
+</ParamField>
+
+<ParamField body="labelLayout" type="string">
+Label layout (ex: 4x6)
+</ParamField>
+
+<ParamField body="zplEncoded" type="boolean">
+Encode ZPL code using BASE64 (Default true) 
+</ParamField>
+
+<ParamField body="parcels" type="array of object">
+Parcel Object
+</ParamField>
+
+
+
+### Account Object
+<ParamField body="accountNumber" type="string" required>
+Account Number
+</ParamField>
+
+<ParamField body="accountType" type="string" required>
+Account Type (ex: Shipper | Carrier | RSE) 
+</ParamField>
+
+
+### Parcel Object
+<ParamField body="referenceId" type="string">
+Unique and immutable shipment identifier from upstream system 
+</ParamField>
+
+<ParamField body="quoteId" type="string">
+If available quoteId from a previous rate API call will use previous parcel attributes and calculated rate.No quoteId will generate a quote and label
+</ParamField>
+
+<ParamField body="shipDate" type="date">
+Ship Date
+</ParamField>
+
+<ParamField body="serviceType" type="string" required>
+Service Type
+</ParamField>
+
+<ParamField body="pickupType" type="string">
+Reserved for future use
+</ParamField>
+
+<ParamField body="parcelType" type="string">
+Reserved for future use
+</ParamField>
+
+<ParamField body="shipFrom" type="object" required>
+Address Object
+</ParamField>
+
+<ParamField body="shipTo" type="object"required>
+Address Object
+</ParamField>
+
+<ParamField body="service Attributes" type="string array">
+List of Service Attributes
+</ParamField>
+
+<ParamField body="weight" type="object" required>
+Weight of Object
+</ParamField>
+
+<ParamField body="dimensions" type="object" required>
+Dimension of Object
+</ParamField>
+
+<ParamField body="reference1" type="string">
+Reference field for customer use
+</ParamField>
+
+
+
+<ParamField body="reference2" type="string">
+Reference field for customer use
+</ParamField>
+
+### Address Object
+
+<ParamField body="company" type="string">
+Company Name
+</ParamField>
+
+
+<ParamField body="name" type="string" required>
+Name
+</ParamField>
+
+<ParamField body="address1" type="string" required>
+Address Line 1
+</ParamField>
+
+
+<ParamField body="address2" type="string">
+Address Line 2
+</ParamField>
+
+
+<ParamField body="city" type="string" required>
+Name of City
+</ParamField>
+
+
+<ParamField body="state" type="string" required>
+
+State Code ( 2 digit) eg : CA 
+
+</ParamField>
+
+
+<ParamField body="zip" type="string" required>
+Zip Code
+</ParamField>
+
+
+<ParamField body="country" type="string" required>
+Country Code
+</ParamField>
+
+
+<ParamField body="phone" type="string">
+Phone Number
+</ParamField>
+
+
+<ParamField body="email" type="string">
+Email ID
+</ParamField>
+
+
+<ParamField body="addressType" type="string">
+B, R (Business | Residential) 
+</ParamField>
+
+
+
+### Weight Object
+
+
+<ParamField body="value" type="number" required>
+Value
+</ParamField>
+
+<ParamField body="unit" type="number" required>
+Unit
+</ParamField>
+
+
+### Dimension Object
+
+<ParamField body="unit" type="string" required>
+Unit
+</ParamField>
+
+<ParamField body="length" type="number" required>
+length
+</ParamField>
+
+<ParamField body="width" type="number" required>
+Width
+</ParamField>
+
+<ParamField body="height" type="number" required>
+Height
+</ParamField>
+
+## Response Parameters
+<ParamField body="currency" type="string">
+Currency
+</ParamField>
+
+<ParamField body="zplEncoded" type="boolean">
+Encode ZPL code using BASE64 (Default true) 
+</ParamField>
+
+<ParamField body="parcels" type="array of object">
+Parcel Object
+</ParamField>
+
+
+<ParamField body="errors" type="array of object">
+Error Object
+</ParamField>
+
+### Parcel Object
+<ParamField body="referenceId" type="string">
+Unique and immutable shipment identifier from upstream system 
+</ParamField>
+
+<ParamField body="quoteId" type="string" required>
+Quote Id for each parcel
+</ParamField>
+
+<ParamField body="shipDate" type="date">
+Ship Date
+</ParamField>
+
+<ParamField body="serviceType" type="string" required>
+Service Type
+</ParamField>
+
+
+<ParamField body="pickupType" type="string">
+Reserved for future use 
+</ParamField>
+
+<ParamField body="parcelType" type="string">
+Reserved for future use 
+</ParamField>
+
+
+<ParamField body="shipFrom" type="object" required>
+Address Object
+</ParamField>
+
+<ParamField body="shipTo" type="object" required>
+Address Object
+</ParamField>
+
+<ParamField body="weight" type="object" required>
+Weight Object
+</ParamField>
+
+
+<ParamField body="dimensions" type="object" required>
+Dimension Object
+</ParamField>
+
+
+<ParamField body="reference1" type="string">
+Reference field for customer use 
+</ParamField>
+
+<ParamField body="reference2" type="string">
+Reference field for customer use 
+</ParamField>
+
+<ParamField body="label" type="object" required>
+Label Object
+</ParamField>
+
+### Label Object
+
+<ParamField body="id" type="string" required>
+Label tracking id 
+</ParamField>
+
+<ParamField body="createdDate" type="string" required>
+Timestamp of label generation call 
+</ParamField>
+
+<ParamField body="labelUrl" type="string" required>
+Hyperlink to download the label 
+</ParamField>
+
+<ParamField body="labelDate" type="string" required>
+Label date
+</ParamField>
+
+<ParamField body="sortCode" type="string" required>
+Final delivery destination sort code
+</ParamField>
+
+
 
 <RequestExample>
 ```json 
@@ -92,7 +379,7 @@ Account Object (minimum Shipper or Carrier info is mandatory)
 
 
 <ResponseExample>
-```json Response
+```json Response JSON 200 OK
 {
   "currency": "USD",
   "zplEncoded": false,

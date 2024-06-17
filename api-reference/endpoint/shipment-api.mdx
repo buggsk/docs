@@ -1,0 +1,357 @@
+---
+title: 'Shipment API'
+api: 'POST  https://api.orchestro.ai/api/v1/core/shipments'
+description: 'This endpoint captures the details of the parcel across the network.'
+---
+
+## Request Parameters
+
+<ParamField body="callerType" type="string" default="10" required>
+Caller type. ex: Carrier | Shipper
+</ParamField>
+
+
+<ParamField body="accounts" type="object array" default="3" required>
+Account Object min 1 and max 3. 
+Each account number length supported 25 chars. 
+</ParamField>
+
+
+<ParamField body="parcels" type="object array" default="10" required>
+Parcel Object min 1 and max 10. 
+</ParamField>
+
+### Account Object
+
+<ParamField body="accountNumber" type="string" default="25" required>
+Account number provided by Orchestro 
+</ParamField>
+
+<ParamField body="accountType" type="string" default="25" required>
+Account Type (ex: Shipper | Carrier | RSE) 
+</ParamField>
+
+
+### Parcel Object
+
+<ParamField body="trackingId" type="string" default="25" required>
+Barcode attached to the parcel 
+</ParamField>
+
+
+<ParamField body="carrierName" type="string" default="100" required>
+Carrier Name
+</ParamField>
+
+
+<ParamField body="shipmentDate" type="date">
+Shipment Date 
+</ParamField>
+
+<ParamField body="serviceType" type="string" default="25" required>
+Service Type
+</ParamField>
+
+
+<ParamField body="parcelType" type="string" default="25">
+Parcel Type, reserved for future use 
+</ParamField>
+
+<ParamField body="shipFrom" type="object"required>
+Address Object 
+</ParamField>
+
+<ParamField body="shipTo" type="object" required>
+Address Object 
+</ParamField>
+
+<ParamField body="serviceAttributes" type="object array">
+Service Attributes Object 
+</ParamField>
+
+
+<ParamField body="surcharges" type="object array">
+Surcharges Object
+</ParamField>
+
+
+
+<ParamField body="weight" type="object" required>
+Weight Object
+</ParamField>
+
+
+<ParamField body="dimensions" type="object">
+Dimension Object
+</ParamField>
+
+
+### Address Object
+
+<ParamField body="company" type="string" default="25">
+Company Name
+</ParamField>
+
+
+<ParamField body="name" type="string" default="25" required>
+Name
+</ParamField>
+
+
+<ParamField body="address1" type="string" default="50" required>
+Address Line 1
+</ParamField>
+
+<ParamField body="address2" type="string" default="50" required>
+Address Line 2
+</ParamField>
+
+
+
+<ParamField body="city" type="string" default="25" required>
+Name of City
+</ParamField>
+
+
+<ParamField body="state" type="string" default="2" required>
+
+State Code ( 2 digit) eg : CA 
+
+</ParamField>
+
+
+<ParamField body="zip" type="string" default="20"required>
+Zip Code
+</ParamField>
+
+
+<ParamField body="country" type="string" default="3" required>
+Country Code  (2 or 3 digit) eg: US or USA 
+</ParamField>
+
+
+<ParamField body="phone" type="string" default="25">
+Phone Number
+</ParamField>
+
+
+<ParamField body="email" type="string" default="50">
+Email ID
+</ParamField>
+
+
+<ParamField body="addressType" type="string" default="25">
+B, R (Business | Residential) 
+</ParamField>
+
+
+### Service Attributes Object
+<ParamField body="code" type="string" default="20" required>
+Service attribute code 
+</ParamField>
+
+<ParamField body="description" type="string" default="100" required>
+Service attribute description
+</ParamField>
+
+
+### Surcharges Object
+<ParamField body="code" type="string" default="20" required>
+Surcharge code 
+</ParamField>
+
+<ParamField body="description" type="string" default="100" required>
+Surcharge description 
+</ParamField>
+
+
+### Weight Object
+
+
+<ParamField body="value" type="number" required>
+Value
+</ParamField>
+
+<ParamField body="unit" type="number" default="2" required>
+Unit
+</ParamField>
+
+
+### Dimension Object
+
+<ParamField body="unit" type="string" required>
+Unit
+</ParamField>
+
+<ParamField body="length" type="number" default="4" required>
+length
+</ParamField>
+
+<ParamField body="width" type="number" required>
+Width
+</ParamField>
+
+<ParamField body="height" type="number" required>
+Height
+</ParamField>
+
+
+## Response Parameters
+
+<ParamField body="errors" type="object array">
+Error Object
+</ParamField>
+
+
+
+### Error Object
+
+<ParamField body="code" type="string" default="20">
+Error code
+</ParamField>
+
+
+<ParamField body="message" type="string" default="200">
+Error description
+</ParamField>
+
+<RequestExample>
+```json
+ 
+{ 
+	"callerType": "SHIPPER", 
+	"accounts": [ 
+    	{ 
+        	"accountNumber": "TEST_ACCOUNT_1", 
+        	"accountType": "SHIPPER" 
+    	} 
+	], 
+	"parcels": [ 
+    	{ 
+       	"trackingId": "TEST-123", 
+       	"carrierName": "TEST_CARRIER_NAME", 
+        	"shipmentDate": "2023-12-22T06:34:00", 
+        	"serviceType": "GRD", 
+        	"parcelType": "P", 
+        	"shipFrom": { 
+            	"company": "Dallas City Hall", 
+            	"name": "The City Secretary's Office", 
+            	"address1": "1500 Marilla Street", 
+            	"address2": "", 
+            	"city": "Dallas", 
+            	"state": "TX", 
+            	"zip": "75201", 
+            	"country": "US", 
+            	"phone": "", 
+            	"email": "", 
+            	"addressType": "B" 
+        	}, 
+        	"shipTo": { 
+            	"company": "Dallas City Hall", 
+            	"name": "The City Secretary's Office", 
+            	"address1": "1500 Marilla Street", 
+            	"address2": "", 
+            	"city": "Dallas", 
+            	"state": "TX", 
+            	"zip": "75201", 
+            	"country": "US", 
+            	"phone": "", 
+            	"email": "", 
+            	"addressType": "B" 
+        	}, 
+        	" serviceAttributes ": [ 
+            	{ 
+                	"code": "AD_SIGN", 
+                	"description": "Adult Signature Required" 
+            	} 
+        	], 
+        	"surcharges": [ 
+            	{ 
+                	"code": "FUEL", 
+                	"description": "Fuel Surcharge" 
+            	} 
+        	], 
+        	"weight": { 
+            	"value": 6, 
+            	"unit": "lb" 
+        	}, 
+        	"dimensions": { 
+            	"unit": "inch", 
+            	"length": 12, 
+            	"width": 12, 
+            	"height": 4 
+        	} 
+    	} 
+	] 
+} 
+
+
+```
+
+</RequestExample>
+
+
+### Sample Response JSON (401  Unauthorized)
+
+```json
+{ 
+	"errors": [ 
+    	{ 
+        	"code": "ERR-1000", 
+        	"message": "Invalid Token." 
+    	} 
+	] 
+} 
+
+```
+
+### Sample Response JSON (400 Bad Request)
+
+```json
+{ 
+  "errors": [ 
+	{ 
+  	"code": "ERR-3001", 
+  	"message": "Shipment Date is required." 
+	}, 
+	{ 
+ 	"code": "ERR-3003", 
+ 	"message": "Total number of parcels should be greater than 0." 
+	} 
+  ] 
+} 
+ 
+
+
+```
+
+### Sample Response JSON (500 Internal Serve Error)
+
+```json
+ 
+{ 
+  "errors": [ 
+	{ 
+  	"code": "ERR-2025", 
+  	"message": "We are having some issue, please resubmit the request." 
+	}, 
+  ] 
+} 
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -18,21 +18,22 @@ Shipment date of a package
 </ParamField>
 
 <ParamField body="sendTNT" type="boolean">
-TNT
+This indicates a TNT service is requested
 </ParamField>
 
 
 <ParamField body="sortOrder" type="string">
-Sort Oder
+Sort Order
 </ParamField>
 
 
-<ParamField body="currencyT" type="string">
+<ParamField body="currency" type="string">
 Currency
 </ParamField>
 
 
-<ParamField body="sendAllServiceAttribute" type="boolean">
+<ParamField body="sendAllServiceAttributes" type="boolean">
+Request all available service attributes for selected service type
 </ParamField>
 
 
@@ -56,7 +57,7 @@ Unique and immutable order identifier from your upstream system
 </ParamField>
 
 <ParamField body="shipDate" type="date">
-Ship Date
+Ship Date of the package
 </ParamField>
 
 <ParamField body="serviceType" type="string" required>
@@ -160,13 +161,145 @@ B, R (Business | Residential)
 Value
 </ParamField>
 
+<ParamField body="unit" type="number" required>
+Unit
+</ParamField>
+
+### Dimension Object
 
 <ParamField body="unit" type="string" required>
 Unit
 </ParamField>
 
-<RequestExample>
+<ParamField body="length" type="number" required>
+length
+</ParamField>
 
+<ParamField body="width" type="number" required>
+Width
+</ParamField>
+
+<ParamField body="height" type="number" required>
+Height
+</ParamField>
+
+## Response Parameters
+<ParamField body="currency" type="string">
+Currency
+</ParamField>
+
+<ParamField body="parcels" type="array of object">
+Parcel Object
+</ParamField>
+
+<ParamField body="errors" type="array of object">
+Error Object
+</ParamField>
+
+### Parcel Object
+<ParamField body="referenceId" type="string">
+Unique and immutable shipment identifier from upstream system 
+</ParamField>
+
+<ParamField body="quoteId" type="string" required>
+Quote Id for each parcel
+</ParamField>
+
+<ParamField body="shipDate" type="date">
+Ship Date
+</ParamField>
+
+<ParamField body="serviceType" type="string" required>
+Service Type
+</ParamField>
+
+
+<ParamField body="pickupType" type="string">
+Reserved for future use 
+</ParamField>
+
+<ParamField body="parcelType" type="string">
+Reserved for future use 
+</ParamField>
+
+
+<ParamField body="shipFrom" type="object" required>
+Address Object
+</ParamField>
+
+<ParamField body="shipTo" type="object" required>
+Address Object
+</ParamField>
+
+<ParamField body="weight" type="object" required>
+Weight Object
+</ParamField>
+
+<ParamField body="dimensions" type="object" required>
+Dimension Object
+</ParamField>
+
+<ParamField body="rates" type="array of object" required>
+Rate Object
+</ParamField>
+
+### Rate Object
+
+<ParamField body="zone" type="number" required>
+Zone information
+</ParamField>
+
+
+<ParamField body="serviceType" type="string" required>
+Service Type
+</ParamField>
+
+
+<ParamField body="tnt" type="number" required>
+TNT
+</ParamField>
+
+
+<ParamField body="baseRate" type="number" required>
+Base Rate
+</ParamField>
+
+
+<ParamField body="totalRate" type="number" required>
+Total Rate of the package including surcharges
+</ParamField>
+
+
+<ParamField body="surcharges" type="array of object" required>
+Surcharge Object
+</ParamField>
+
+
+<ParamField body="serviceAttributes" type="array of object" required>
+Service Attributes Object
+</ParamField>
+
+### Surcharge Object
+
+
+<ParamField body="code" type="string" required>
+Code
+</ParamField>
+
+
+<ParamField body="description" type="string" required>
+Description
+</ParamField>
+
+
+<ParamField body="rate" type="string" required>
+Rate
+</ParamField>
+
+
+
+
+<RequestExample>
 ```json Request
  {
   "callerType": "CARRIER",
@@ -237,7 +370,7 @@ Unit
 </RequestExample>
 
 <ResponseExample>
-```json Response
+```json Response 200 OK
 {
   "currency": "USD",
   "parcels": [

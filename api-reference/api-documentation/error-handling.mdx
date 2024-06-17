@@ -3,7 +3,8 @@ title: 'Error Handling'
 description: ''
 ---
 
-If an error is encountered, the return value will be one of 200, 400, 401 or 500.  The object returned will be a JSON object with a list of errors encountered.  Contact carrier.integration@orchestro.ai with information about the problem if error 500 is encountered. 
+If an error is encountered, the API will return a JSON object with a status code of either 400 (Bad Request), 401 (Unauthorized), or 500 (Internal Server Error) .
+The JSON object will include a detailed error message. For help, contact carrier.integration@orchestro.ai with information.
 
 ## Error Object 
 

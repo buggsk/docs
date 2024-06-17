@@ -1,0 +1,171 @@
+---
+title: 'Cancel Label API'
+api: ' DELETE https://api.orchestro.ai/api/v1/core/cancel-labels'
+description: 'This endpoint is used to cancel the generated labels. If there are no scan events associated with the `tracking ID`, the label can be successfully canceled. '
+---
+
+## Request Parameters
+
+
+<ParamField body="callerType" type="string" default="10" required>
+Caller type. ex: Carrier | Shipper 
+</ParamField>
+
+<ParamField body="accounts" type="array of object" default="3" required>
+Account Object min 1 and max 3. 
+Each account number length supported 25 chars.
+</ParamField>
+
+<ParamField body="labels" type="array of string" default="10" required>
+List of tracking numbers and each tracking number length supported 25 chars.
+</ParamField>
+
+### Account Object
+
+<ParamField body="accountNumber" type="string" default="25" required>
+Account number provided by Orchestro 
+</ParamField>
+
+
+<ParamField body="accountType" type="string" default="25" required>
+Account Type (ex: Shipper | Carrier | RSE) 
+</ParamField>
+
+
+## Response Parameters
+<ParamField body="labelId" type="string" default="25" required>
+Barcode attached to the parcel
+</ParamField>
+
+<ParamField body="status" type="string" default="7" required>
+Cancel status message (ex: SUCCESS | FAILURE) 
+</ParamField>
+
+
+<ParamField body="errors" type="array of object" default="n/a">
+Error Object
+</ParamField>
+
+
+### Error Object
+
+<ParamField body="code" type="string" default="20">
+Error code
+</ParamField>
+
+
+<ParamField body="message" type="string" default="200">
+Error description
+</ParamField>
+
+
+<RequestExample>
+```json 
+{
+    "callerType": "SHIPPER",
+    "accounts": [
+        {
+            "accountType": "SHIPPER",
+            "accountNumber": "TEST_ACCOUNT"
+        }
+    ],
+    "labels": [
+        "test_tracking_number1",
+        "test_tracking_number2"
+    ]
+}
+
+
+```
+</RequestExample>
+
+
+<ResponseExample>
+```json Response 200 OK
+[ 
+	{ 
+    	"labelId": " test_tracking_number1", 
+    	"status": "SUCCESS" 
+	}, 
+	{ 
+    	"labelId": " test_tracking_number2", 
+    	"status": "SUCCESS" 
+	} 
+] 
+ 
+
+
+```
+
+</ResponseExample>
+
+
+
+### Sample Response JSON (200 OK)
+
+```json
+ 
+[ 
+	{ 
+    	"labelId": "test_tracking_number1", 
+    	"status": "SUCCESS" 
+	}, 
+	{ 
+    	"labelId": "test_tracking_number2", 
+    	"status": "FAILURE", 
+    	"errors": [ 
+        	{ 
+            	"code": "ERR-3200", 
+            	"message": "Invalid Label Id or Label doesn't exist." 
+        	} 
+    	] 
+	} 
+] 
+
+
+```
+
+
+### Sample Response JSON (401 Unauthorized)
+
+```json
+{ 
+	"errors": [ 
+    	{ 
+        	"code": "ERR-1000", 
+        	"message": "Invalid Token. Please provide a valid Token." 
+    	} 
+	] 
+} 
+
+```
+
+### Sample Response JSON (400 Bad Request)
+
+```json
+{ 
+	"errors": [ 
+    	{ 
+        	"code": "ERR-1002", 
+        	"message": "Invalid input." 
+    	} 
+	] 
+} 
+
+
+```
+
+
+### Sample Response JSON (500 Internal Server Error)
+
+```json
+{ 
+  "errors": [ 
+	{ 
+  	"code": "ERR-2025", 
+  	"message": "We are having some issue, please resubmit the request." 
+	}, 
+  ] 
+} 
+
+```

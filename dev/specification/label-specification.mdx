@@ -12,7 +12,7 @@ All parcels sent to the Orchestro platform must use this standard label for prop
 ## Standard Label Certification 
 Carrier Partners, calling the API and generating labels must submit test samples to the Orchestro label team for certification prior to physical parcel shipping. This is to ensure proper implementation of the standard label format.  
  
-Please submit samples to carrier.integration@orchestro.ai with Label Certification in the subject line. Carrier’s integration team can also assist in the certification process.  
+Submit samples to carrier.integration@orchestro.ai with Label Certification in the subject line. Carrier’s integration team can also assist in the certification process.  
 
 
 ##  Standard Label Design
@@ -22,7 +22,7 @@ The Orchestro standard label is designed to ensure interoperability across the n
 This label features a GS1-128 1D barcode for the Orchestro universal tracking ID, along with a 2D data matrix barcode that encodes specific details about the parcel. The label is designed to accommodate a default routing as well as a dynamic routing using an embedded URL to optimize parcel movement even after label is printed and parcel is in transit. 
 
 
-###  Design example
+###  Design Example
 
 [image]
 
@@ -42,12 +42,12 @@ The following table details out the parts of the label as indicated in figure 2.
 
 ## Details of Data Matrix Barcode
 
-This barcode is pipe delimited, UPS and USPS compliant so enables all carriers to seamlessly work with two of the largest parcel carriers in the country.<br></br>
+This barcode is pipe delimited, UPS and USPS compliant. It enables all carriers to seamlessly work with two of the largest parcel carriers in the country.<br></br>
 
 Key: *A=Alphanumeric*, *N=Numeric*, *F=Fixed Size*, *V=Variable Size*
 | Field Name | A/N | F/V | Size | Sample Value | Required | Comments |
 |---|---|---|---|---|---|---|
-| Message Version Number | N | V | 02 | 03 | Yes | Indicates data table layout version (use “03” for this version) |
+| Message Version Number | N | V | 02 | 03 | Yes | Indicates data table layout version (use 03 for this version) |
 | Mail Manifest ID | N | F | 18 | 812345607150000001 | Yes | The ID used in the manifest file |
 | Customer ID | A | F | 6 | 123456 | No | UPS Mail Innovation Account Number / Orchestro Number |
 | Customer Cost Center | A | V | 30 | 854NB09NHYF | No | Optional customer related data |
@@ -58,13 +58,12 @@ Key: *A=Alphanumeric*, *N=Numeric*, *F=Fixed Size*, *V=Variable Size*
 | Destination Postal Code | A | V | 30343, AV96M1 | Yes | No space for or dashes are allowed |
 | Destination Country Code | N | F | 3 | 840 | Yes | Use the ISO country code |
 | Package ID | A | V | 30 | 000123ABC | Yes | Minimum of one character |
-| USPS Weight | N | V | 2,4 | 5.5000, 65.0125 | Yes | Weight in pounds (four decimals are required) |
-| Processing category code | N | V | 2,2| 7,13 | class |See “processing category table”. Field is blank if mail as an international destination or is categorized as a flat |
+| USPS Weight | N | V | 2 , 4 | 5.5000, 65.0125 | Yes | Weight in pounds (four decimals are required) |
+| Processing category code | N | V | 2 , 2| 7 , 13 | class |See “processing category table”. Field is blank if mail as an international destination or is categorized as a flat |
 | USPS Tracking Number | N | F | 34 | 42030005926121234 56789123456789019 | Yes | Tracking code for USPS network as a subnetwork carrier |
 | Sort Code | A | F | 10 | DAL | Yes | Defines the region code which is a function of Airport code |
 | Connector Code | A | V | 24 | orchestro.ai /P96745TL | Yes | Embedded dynamic routing & last mile carrier code: 0X which is default sort location and A03 is micro route / sort code / settlement code. Followed by a digit - indicates Carrier class (National, Regional, Postal Integrator, metro, courier), AXX – indicates carrier number, A9 – Service code and A10 – Value added services expected |
 | Orchestro Tracking Code | A | F | 8 | P96745TL | Yes | An eight-character alpha-numeric code starting with ‘P' for parcel and ‘C’ for container, followed by 7 alphanumeric characters excluding ‘O’ and 'I’. |
-
 
 ## ZPL Format
 ```

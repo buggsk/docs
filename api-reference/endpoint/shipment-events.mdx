@@ -1,0 +1,314 @@
+---
+title: 'Shipment Events API'
+api: 'POST  https://api.orchestro.ai/api/v1/core/shipment-events'
+description: 'This endpoint captures the event scan details of the parcel across the network.'
+---
+
+## Request Parameters
+
+
+<ParamField body="trackingId" type="string" default="25" required>
+Barcode attached to the parcel 
+</ParamField>
+
+
+<ParamField body="accountNumber" type="string" default="25" required>
+Account number provided by Orchestro 
+</ParamField>
+
+
+<ParamField body="carrierCode" type="string" default="25" required>
+Carrier code 
+</ParamField>
+
+
+<ParamField body="carrierName" type="string" default="100" required>
+Carrier name
+</ParamField>
+
+<ParamField body="event" type="object">
+Event Object
+</ParamField>
+
+
+<ParamField body="phyAttributesUpdate" type="object">
+Attributes update object
+</ParamField>
+
+### Event Object
+
+<ParamField body="comments" type="string" default="200">
+Comments
+</ParamField>
+
+<ParamField body="status" type="string" default="25" required>
+Event Status tracking in Orchestro’s Network Code 
+</ParamField>
+
+<ParamField body="alternateStatus" type="string" default="25">
+Alternate Status Code
+</ParamField>
+
+
+
+<ParamField body="deliverySignature" type="string" default="200">
+Delivery Signature
+</ParamField>
+
+<ParamField body="timestamp" type="timestamp">
+Timestamp
+</ParamField>
+
+
+<ParamField body="timezone" type="string" default="3">
+Timezone
+</ParamField>
+
+
+<ParamField body="latitude" type="double" required>
+Coordinates of scan event 
+</ParamField>
+
+<ParamField body="longitude" type="double" required>
+Coordinates of scan event 
+</ParamField>
+
+
+<ParamField body="city" type="string" default="50">
+City
+</ParamField>
+
+
+<ParamField body="state" type="string" default="2">
+State Code (2 digit) eg: CA 
+</ParamField>
+
+<ParamField body="zip" type="string" default="20">
+Zip Code
+</ParamField>
+
+<ParamField body="pod" type="object">
+POD Object
+</ParamField>
+
+
+### POD Object
+
+<ParamField body="otherDeliveryInfo" type="string" default="200">
+Additional notes about delivery 
+</ParamField> 
+
+<ParamField body="signatureName" type="string" default="200">
+Text of consignee name
+</ParamField> 
+
+<ParamField body="images" type="object array">
+Image object
+</ParamField>
+
+
+### Image Object
+
+<ParamField body="imageType" type="string" default="10" required>
+Either POD or SIGNATURE  
+</ParamField>
+
+<ParamField body="imageUrl" type="string" default="2000" required>
+Url where image can be downloaded
+</ParamField>
+
+<ParamField body="expiration" type="date">
+Image expiration if known
+</ParamField>
+
+### Attributes Update Object
+
+<ParamField body="updates" type="object array">
+Dimension Update Object 
+</ParamField>
+
+### Dimension Update Object
+
+<ParamField body="attribute" type="string" default="10" required>
+One of length, width, height, weight 
+</ParamField>
+
+
+<ParamField body="newValue" type="string" required>
+New measured value   
+</ParamField>
+
+
+<ParamField body="unit" type="string" default="4" required>
+Unit for measured value, usually in or lb
+</ParamField>
+
+<RequestExample>
+```json
+{ 
+	"trackingId": "TEST-123", 
+	"accountNumber": "TEST_ACCOUNT_1", 
+	"carrierCode": "TEST_CARRIER_CODE", 
+	"carrierName": "TEST_CARRIER_NAME", 
+	"event": { 
+    	"comments": "Pickup scan successful", 
+    	"status": "DPCK", 
+    	"alternateStatusCode": "", 
+    	"deliverySignature": "", 
+    	"timestamp": "2014-10-29T06:34:00", 
+    	"timezone": "CST", 
+    	"latitude": 38.896765, 
+    	"longitude": -77.036211, 
+    	"city": "HARKER HEIGHTS", 
+    	"state": "TX", 
+    	"zip": "76548", 
+    	"pod": null 
+	} 
+} 
+
+
+```
+
+</RequestExample>
+
+
+### Request Example One
+
+```json
+
+{ 
+	"trackingId": "TEST-123", 
+	"accountNumber": "TEST_ACCOUNT_1", 
+	"carrierCode": "TEST_CARRIER_CODE", 
+	"carrierName": "TEST_CARRIER_NAME", 
+	"event": { 
+    	"comments": "Delivered at reception", 
+    	"status": "DDEL", 
+    	"alternateStatusCode": "", 
+    	"deliverySignature": "Yes", 
+    	"timestamp": "2024-03-18T07:30:00-06:04", 
+    	"timezone": "EST", 
+    	"latitude": 0, 
+    	"longitude": 0, 
+    	"city": "Harwood Heights", 
+    	"state": "IL", 
+    	"zip": "60706", 
+    	"pod": { 
+        	"otherDeliveryInfo": "", 
+        	"signatureName": "Palanivel M", 
+        	"images": [ 
+            	{ 
+                	"imageType": "POD", 
+                	"imageUrl": "https://geodis.com/sites/default/files/2022-01/Adobe%20Stock_11322_1920x1080.jpg", 
+                	"expiration": "2024-03-17T07:30:00-06:04" 
+            	}, 
+            	{ 
+                	"imageType": "SIGNATURE", 
+                	"imageUrl": "https://philadelphiamailroom.com/wp-content/uploads/2018/12/Woman-signing-receipt-of-delivery-300x199.jpg", 
+                	"expiration": "2024-03-17T07:30:00-06:04" 
+            	} 
+        	] 
+    	} 
+	}, 
+	"phyAttributesUpdate": { 
+    	"updates": [ 
+        	{ 
+            	"attribute": "length", 
+            	"newValue": 11.7, 
+            	"unit": "inch" 
+        	} 
+    	] 
+	} 
+} 
+```
+
+### Request Example Two
+
+```json
+{ 
+	"trackingId": "TEST-123", 
+	"accountNumber": "TEST_ACCOUNT_1", 
+	"carrierCode": "TEST_CARRIER_CODE", 
+	"carrierName": "TEST_CARRIER_NAME", 
+	"phyAttributesUpdate": { 
+    	"updates": [ 
+        	{ 
+            	"attribute": "length", 
+            	"newValue": 12.5, 
+            	"unit": "lb" 
+        	} 
+    	] 
+	} 
+} 
+
+
+```
+
+### Sample Response JSON (200 OK)
+
+
+### Sample Response JSON (401 Unauthorized)
+
+```json
+{ 
+	"errors": [ 
+    	{ 
+        	"code": "ERR-1000", 
+        	"message": "Invalid Token." 
+    	} 
+	] 
+} 
+
+
+```
+
+### Sample Response JSON (400 Bad Request)
+
+```json
+{ 
+  "errors": [ 
+	{ 
+  	"code": "ERR-2072", 
+  	"message": "The Account Number is invalid." 
+	} 
+  ] 
+} 
+
+```
+
+### Sample Response JSON (500 Internal Server Error)
+```json
+ 
+{ 
+  "errors": [ 
+	{ 
+  	"code": "ERR-2025", 
+  	"message": "We are having some issue, please resubmit the request." 
+	}, 
+  ] 
+} 
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

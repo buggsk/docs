@@ -21,9 +21,6 @@
         "method": "bearer"
       }
     },
-  
-
-
   "tabs": [
     {
       "name": "API Reference",
@@ -104,8 +101,9 @@
     {
       "group": "Changelog",
       "pages": [
-        "dev/changelog/version2.0",
-        "dev/changelog/version2.1"
+        "dev/changelog/version2.1",
+        "dev/changelog/version2.0"
+        
         
       ]
     },
@@ -124,12 +122,12 @@
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction",
-        "api-reference/quick-start",
-        "api-reference/api-features",
-        "api-reference/usecase",
-        "api-reference/authorization",
-        "api-reference/error-handling"
+        "api-reference/api-documentation/introduction",
+        "api-reference/api-documentation/quick-start",
+        "api-reference/api-documentation/api-features",
+        "api-reference/api-documentation/usecase",
+        "api-reference/api-documentation/authorization",
+        "api-reference/api-documentation/error-handling"
 
       
     
@@ -140,12 +138,22 @@
       "pages": [
         "api-reference/endpoint/coverage",
         "api-reference/endpoint/rate",
-        "api-reference/endpoint/label"
+        "api-reference/endpoint/label",
+        "api-reference/endpoint/cancel-label",
+        "api-reference/endpoint/shipment-api",
+         "api-reference/endpoint/shipment-events"
+    
       
         
       ]
     }
+  ],
+   "footerSocials":{ 
+       "linkedin": "https://www.linkedin.com/company/orchestro-ai/"
+    
+
+}
 
    
-  ]
+  
 }

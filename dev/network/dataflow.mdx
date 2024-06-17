@@ -2,25 +2,26 @@
 title: 'Data Flow'
 description: ''
 ---
-The role of Shipper starts the flow of data into the Orchestro Network. A Brand or a Carrier Participant can act as a Shipper by submitting an order to the network. A Participant Carrier in the role of the Destination Carrier, receives data from the Orchestro network and pushes events to Orchestro completing the package data lifecycle to the destination delivery. 
-For a deeper understanding, please find below the journey of the parcel from origin to destination in a multi-party network. 
+The role of a Shipper starts the flow of data into the Orchestro Network. A Brand or a Carrier Participant can act as a Shipper by submitting an order to the network. 
+A Participant Carrier in the role of the Destination Carrier, receives data from the Orchestro network and pushes events to Orchestro completing the package data lifecycle to the destination delivery. 
+For better comprehension, see the table below for the journey of the parcel from origin to destination in a multi-party network. 
 
 | Steps | Party | Role | Description | Data Provided by Party | Data Available from Platform |
 |---|---|---|---|---|---|
 | 1 | Origin Carrier or Brand | Shipper | Origin Carrier acts as a shipper and initiates sequence by sending manifest to Orchestro | - Manifest info - First mile tracking | - Middle/last mile tracking -Async error messages | 
-| 2 | Orchestro | Destination Carrier | Orchestro acts as carrier and receives manifest from Origin carrier/Brand All tracking info |- All tracking info | Async error messages |
+| 2 | Orchestro | Destination Carrier | Orchestro acts as carrier and receives manifest from Origin carrier/Brand |- All tracking info | Async error messages |
 | 3 | Orchestro | Shipper| Orchestro acts as shipper and provides manifest to last mile carrier (middle mile may or may not be involved) | - Manifest info - All tracking info | All tracking info Async error messages |
 | 4 | Destination carrier| Carrier | Destination carrier receives manifest from Orchestro and delivers parcel to destination | Last mile tracking info| - First/middle mile tracking info - Async error messages |
 
 
 ## Manifest Data Feed 
-The manifest data feed will send the information in the format as defined in the Standard Manifest section below. 
+The manifest data feed will send the information in the format as defined in the [Standard Manifest section](https://documentation.mintlify.app/dev/connection/webhooks#standard-manifest-format). 
 
 ## Tracking Data Feed 
-The tracking data feed will send the information in the format as defined in the Standard Event Format section below. 
+The tracking data feed will send the information in the format as defined in the [Standard Event Format section](https://documentation.mintlify.app/dev/connection/webhooks#standard-event-format). 
 
 ## Error Data Feed 
-Most errors encountered in the Orchestro system are asynchronous and could be directly due to an input from the carrier system or could be due to an event received from the network. Errors are published to all affected parties in real time, and carriers are expected to consume and process these errors. 
+Most errors encountered in the Orchestro system are asynchronous and could be due to an input from the carrier system or an event received from the network. Errors are published to all affected parties in real time, and carriers are expected to consume and process these errors. 
 A JSON object is used to deliver error messages via encapsulation. The body of the error message is identified via the headers in the parent object. Other headers include information about the origin and destination of the message.  
 
 | Field | Description |
